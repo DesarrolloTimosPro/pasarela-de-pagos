@@ -202,3 +202,41 @@ function actdesglose() {
       }
       //console.log(d.valueOf() + "0952754406");
   */
+/*
+  </div>
+  <div>
+  <section id="proforma">
+    <div class="texto">
+      <h1>Licencias</h1>
+    </div>
+    <div class="boton">
+      <button onclick="add()">+</button>
+      <button onclick="substract()">-</button>
+    </div>
+    <div class="texto">
+      <h1 id="cantidad_licencias"></h1>
+    </div>
+    <div></div>
+    <div>
+      <div id="pp-button"></div>
+    </div>
+    <div class="boton">
+      <button onclick="pagar()">Pagar</button>
+    </div>
+  </section>
+
+  <section id="formato"></section>
+  /*amount: amount,
+    amountWithoutTax: amountWithoutTax,
+    amountWithTax: amountWithTax,
+    tax: tax,
+    service: service,
+    tip: tip,
+    currency: currency,
+    clientTransactionId: clientTransactionId,
+    storeId: storeId,
+    reference: reference,
+    phoneNumber: phoneNumber,
+    email: email,
+    documentId: documentId,
+    */

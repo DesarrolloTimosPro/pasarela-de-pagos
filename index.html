@@ -4,6 +4,7 @@
 <head>
   <!-- links
   -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <script src="https://pay.payphonetodoesposible.com/api/button/js?appId=iB1grUKucEOpI1Et62EvBg"></script>
   <script>
     let token = "nSEoOvW51YPfsEGmpsu8BoSyIFTaqsGCyN8kkeOvMspw66GwExTguUV_Rcp7iD7MjYG2TCas8GpE7BgxG7gE3kFvNOAM7D75PuywWmvG_c8z2fARbd9DLFOubRbrL9BXt10GDDxQsiLRU3VvyiQtFgBeBYG9cO1wJer3Mq55LKrDtSBBnahqUmoKGdGD-YcNl3aX6YT4O3dngee36BGQLST5r6xjYQp9SZajKgtCCixS5CFIHeaH0h3g1KAqtCjBjcslT1LU-7pgZP09_084SW2iXguVE3QtUKjAGJ_jGXpjXU4pABOM8fde-TyRemyeC7534Q";
@@ -446,7 +447,7 @@
   </div>
 
   <section id="RedireccionamientoPayphone">
-    <button onclick="RedireccionamientoPayphone()">Pagar Con Payphone</button>
+    <button onclick='buttomPrepare()'>Pagar Con Payphone</button>
   </section>
 
 </body>
@@ -459,7 +460,7 @@
 <!-- contador y boton pagar
   -->
 <script>
-
+  /*"RedireccionamientoPayphone()"*/
 
   var ParametrosPost = {
     //int
@@ -478,21 +479,61 @@
     email: email,
     documentId: documentId
   };
+  /*
   var ParametrosGet = {
-    amount: amount,
-    amountWithoutTax: amountWithoutTax,
-    amountWithTax: amountWithTax,
-    tax: tax,
-    service: service,
-    tip: tip,
-    currency: currency,
+    statusCode: statusCode,
+    transactionStatus: transactionStatus,
     clientTransactionId: clientTransactionId,
-    storeId: storeId,
-    reference: reference,
-    phoneNumber: phoneNumber,
+    authorizationCode: authorizationCode,
+    transactionId: transactionId,
     email: email,
-    documentId: documentId
+    phoneNumber: phoneNumber,
+    document: document,
+    amount: amount,
+    cardType: cardType,
+    cardBrandCode: cardBrandCode,
+    cardBrand: cardBrand,
+    bin: bin,
+    lastDigits: lastDigits,
+    deferredCode: deferredCode,
+    deferredMessage: deferredMessage,
+    deferred: deferred,
+    message: message,
+    messageCode: messageCode,
+    currency: currency,
+    optionalParameter1: optionalParameter1
   };
+  */
+
+  function buttomPrepare() {
+    var transacion;
+    numero1 = document.getElementById("totalconivaselect").innerHTML;
+
+    transaccion = Date.now();//creo un id de transaccion random
+    console.log(transaccion);
+
+    var dataJson = {
+      amount: numero1 * 100,
+      amountWithoutTax: numero1 * 100,
+      clientTransactionId: transaccion,
+      responseUrl: "https://www.timospro.com/pagos-online",//cambiar a su url
+      cancellationUrl: "https://www.timospro.com/pagos-online"//cambiar a su url
+    };
+    $.ajax({
+      data: dataJson,
+      url: 'https://pay.payphonetodoesposible.com/api/button/Prepare',
+      type: 'POST',
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader('Authorization', 'bearer ' + token)
+      },
+      success: function SolicitarPago(respuesta) {
+        location.href = respuesta.payWithCard;
+      }, error: function (respuesta) {
+        alert("error en la llamada:" + JSON.stringify(respuesta));
+      }
+    });
+  }
+
   function RedireccionamientoPayphone() {
     console.log("En construccion");
   }
@@ -604,6 +645,7 @@
     formato.appendChild(div);
   }
 
+
   addbottones(productos, '#botonesmasmenos');
   addobj('Producto', productos, 'name', '#profuctos');
   addobj('Precios', productos, 'valor', '#valores');
@@ -618,33 +660,6 @@
 
 </html>
 
-
 <!--
-
-  <!--
-  </div>
-  <div>
-  <section id="proforma">
-    <div class="texto">
-      <h1>Licencias</h1>
-    </div>
-    <div class="boton">
-      <button onclick="add()">+</button>
-      <button onclick="substract()">-</button>
-    </div>
-    <div class="texto">
-      <h1 id="cantidad_licencias"></h1>
-    </div>
-    <div></div>
-    <div>
-      <div id="pp-button"></div>
-    </div>
-    <div class="boton">
-      <button onclick="pagar()">Pagar</button>
-    </div>
-  </section>
-
-  <section id="formato"></section>
-  -->
 
 -->

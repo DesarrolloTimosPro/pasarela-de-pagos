@@ -507,18 +507,21 @@
 
   function buttomPrepare() {
     var transacion;
-    numero1 = document.getElementById("totalconivaselect").innerHTML;
+    //numero1 = document.getElementById("totalconivaselect").innerHTML;
 
-    transaccion = Date.now();//creo un id de transaccion random
+    transaccion = Date.now()+"lol";//creo un id de transaccion random
     console.log(transaccion);
 
     var dataJson = {
-      amount: numero1 * 100,
-      amountWithoutTax: numero1 * 100,
+      amount: parseInt(( document.getElementById('totalconiva').innerHTML)* 100),
+      tax: parseInt(( document.getElementById('totaliva').innerHTML) * 100),
+      amountWithTax: parseInt(( document.getElementById('totalsiniva').innerHTML) * 100),
+      //amountWithoutTax: numero1 * 100,
       clientTransactionId: transaccion,
       responseUrl: "https://www.timospro.com/pagos-online",//cambiar a su url
       cancellationUrl: "https://www.timospro.com/pagos-online"//cambiar a su url
     };
+    console.log(dataJson);
     $.ajax({
       data: dataJson,
       url: 'https://pay.payphonetodoesposible.com/api/button/Prepare',

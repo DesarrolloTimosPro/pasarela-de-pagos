@@ -240,3 +240,96 @@ function actdesglose() {
     email: email,
     documentId: documentId,
     */
+
+
+
+<!--/*Metodo Express Checkout */-->
+    <!--/*##############################Codigo Necesario ##################################*/-->
+	<script>
+        var monto,clientTransaccion;
+            monto = document.getElementById("num1").innerHTML;
+            //clientTransaccion = document.getElementById("transaccion").innerHTML;
+            clientTransaccion =Math.random() *100*Math.random()*100;//creo un id de transaccion random
+
+		window.onload = function() {
+		payphone.Button({
+
+		//token obtenido desde la consola de developer
+		token: token,
+
+		//PARÁMETROS DE CONFIGURACIÓN
+		btnHorizontal: true,
+        btnCard: true,
+
+		createOrder: function(actions){
+
+		//Se ingresan los datos de la transaccion ej. monto
+		return actions.prepare({
+       // debe cumplir la siguiente regla Amount = amountWithoutTax + AmountWithTax + AmountWithTax + Tax + service + tip
+		amount: monto*100,// monto total de venta en etero $1 es 1*100
+		amountWithoutTax: monto*100, //monto total que no cobra iva
+        amountWithTax:0,//monto total que cobra iva
+        tax: 0,//monto del iva
+        service: 0,//si cobra montos de servicio
+        tip:0,//si cobra montos de propina
+        //storeId:"", Si dispone de mas de una tienda y quiere diferenciar la tienda de venta
+		currency: "USD",
+		clientTransactionId: clientTransaccion, ////id unico debe cambiar para cada transaccion
+        responseUrl: "http://localhost/ButtomBasic/confirm.html",//cambiar a su url
+        cancellationUrl: "http://localhost/ButtomBasic/BotonPago.html"//cambiar a su url
+		});
+
+		},
+		onComplete: function(model, actions){
+
+		//Se confirma el pago realizado
+		actions.confirm({
+		id: model.id,
+		clientTxId: model.clientTxId
+		}).then(function(value){
+
+		//EN ESTA SECCIÓN SE PROCESA LA RESPUESTA CON LOS DATOS DE RESPUESTA                                   
+
+		  if (value.statusCode==3){
+                alert('Orden# '+value.clientTransactionId+
+                '\n Codigo de Autorización : '+value.authorizationCode+
+                '\n Moneda :'+value.currency+
+                '\n Monto Total : $'+(value.amount/100).toFixed(2)+
+                '\n Referencia : '+value.reference+
+                '\n Medio de Pago : '+value.cardBrand+
+                '\n Id Transaccion :' + value.transactionId + 
+                '\n Estado :' + value.transactionStatus 
+                );
+              location.reload();
+            }else{
+                alert('Orden# '+value.clientTransactionId+
+                '\n Codigo de Autorización : '+value.authorizationCode+
+                '\n Moneda :'+value.currency+
+                '\n Monto Total : $'+(value.amount/100).toFixed(2)+
+                '\n Referencia : '+value.reference+
+                '\n Medio de Pago : '+value.cardBrand+
+                '\n Id Transaccion : ' + value.transactionId + 
+                '\n Estado : ' + value.transactionStatus +
+                '\n Hubo un problema su transaccion fue : '+value.message
+                );
+              location.reload();
+		  }
+		}).catch(function(err){
+            alert(err);
+            location.reload();
+		  console.log(err);
+		});
+
+		}
+		}).render('#pp-button');
+
+		}
+
+        
+	</script>	
+	<div id="pp-button"></div>
+        /*
+    console.log(amount);
+    console.log(amountWithTax);
+    console.log(tax);
+*/

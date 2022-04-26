@@ -5,11 +5,11 @@
   <!-- links
   -->
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-  <script src="https://pay.payphonetodoesposible.com/api/button/js?appId=MWRpC09cUa1dmtywvpRw"></script>
+  <script src="https://pay.payphonetodoesposible.com/api/button/js?appId=iB1grUKucEOpI1Et62EvBg"></script>
   <script>
-    let token = "LHwf_Mog_Anfp8SCaPsyuLAKos2GcTE9k9u72Nyet68cj-BFR0FWlbvuy9Ym6dTENxWfmlfyQTUvDV0a6NZxjWZ3KRQT6S70fniO4iaf6wDTZHNpYqCnnfLxRxx8wkZE1oSERHY7zD2tPgPUryU-BK63u9YSlA8fbDDjkjvrNugZdN6JFi1fJYA-MZcE8g2w2AE4N2KH9nelazjeuXHNCqfuop3MtktXn8QitEP6lFMdk65z3bL4rvDFCoANM5BGMQa-r1dXk2F6dUPHvPMRHcnp6Ho-dSWXQtaohOIma9BMCbzl0cFo1x0fwfBBP1xXUPpaCw";
-    let responseUrl = "https://pasarela-de-pagos.desarrollotimos.repl.co";//cambiar a su url
-    let cancellationUrl = "https://pasarela-de-pagos.desarrollotimos.repl.co";//cambiar a su url
+    let token = "nSEoOvW51YPfsEGmpsu8BoSyIFTaqsGCyN8kkeOvMspw66GwExTguUV_Rcp7iD7MjYG2TCas8GpE7BgxG7gE3kFvNOAM7D75PuywWmvG_c8z2fARbd9DLFOubRbrL9BXt10GDDxQsiLRU3VvyiQtFgBeBYG9cO1wJer3Mq55LKrDtSBBnahqUmoKGdGD-YcNl3aX6YT4O3dngee36BGQLST5r6xjYQp9SZajKgtCCixS5CFIHeaH0h3g1KAqtCjBjcslT1LU-7pgZP09_084SW2iXguVE3QtUKjAGJ_jGXpjXU4pABOM8fde-TyRemyeC7534Q";
+    let responseUrl = "https://www.timospro.com/pagos-online";//cambiar a su url
+    let cancellationUrl = "https://www.timospro.com/pagos-online";//cambiar a su url
   </script>
 
   <!-- definicion de variables
@@ -19,9 +19,9 @@
     let transacionid;
     let ivaEcuador = .12;
     let amount, amountWithoutTax, amountWithTax, tax, service, tip = 0;
-    amount = parseInt(112);
-    amountWithTax = parseInt(100);
-    tax = parseInt(12);
+      amount=parseInt(112);
+      amountWithTax=parseInt(100);
+      tax=parseInt(12);
     let currency, clientTransactionId, storeId, reference, phoneNumber, email, documentId;
     const cantidades_productos = [];
     const totales_productos = [];
@@ -44,7 +44,6 @@
   -->
   <script>
     transaccionid = Date.now() + "CLientTimos";
-   
     window.onload = function () {
       payphone.Button({
         token: token,
@@ -52,7 +51,7 @@
         btnCard: true,
         createOrder: function (actions) {
           return actions.prepare({
-
+             
             amount: amount,
             amountWithTax: amountWithTax,
             tax: tax,
@@ -497,17 +496,11 @@
 
     transaccionid = Date.now() + "CLientTimos";//creo un id de transaccion random
     //console.log(transaccionid);
-
+        
     var dataJson = {
-
-      /*amount: parseInt((document.getElementById('totalconiva').innerHTML) * 100),
-      tax: parseInt((document.getElementById('totaliva').innerHTML) * 100),
-      amountWithTax: parseInt((document.getElementById('totalsiniva').innerHTML) * 100),
-      */
       amount: amount,
       amountWithTax: amountWithTax,
       tax: tax,
-
       currency: "USD",
       clientTransactionId: transaccionid,
       responseUrl: responseUrl,
@@ -541,69 +534,76 @@
     document.getElementById('totalsiniva').innerHTML = +(((totales_productos.reduce((a, b) => a + b, 0))).toFixed(2));
     document.getElementById('totaliva').innerHTML = +(((totales_productos.reduce((a, b) => a + b, 0)) * ivaEcuador).toFixed(2));
     document.getElementById('totalconiva').innerHTML = +(((totales_productos.reduce((a, b) => a + b, 0)) + ((totales_productos.reduce((a, b) => a + b, 0)) * ivaEcuador)).toFixed(2));
-
-    amountWithTax = (+(((totales_productos.reduce((a, b) => a + b, 0))).toFixed(2))) * 100;
-    tax = (+(((totales_productos.reduce((a, b) => a + b, 0)) * ivaEcuador).toFixed(2))) * 100;
-    amount = (+(((totales_productos.reduce((a, b) => a + b, 0)) + ((totales_productos.reduce((a, b) => a + b, 0)) * ivaEcuador)).toFixed(2))) * 100;
-
+    //amount,amountWithTax,tax=parceInt(0);
+    
+    amountWithTax = (+(((totales_productos.reduce((a, b) => a + b, 0))).toFixed(2)))*100;
+    tax = (+(((totales_productos.reduce((a, b) => a + b, 0)) * ivaEcuador).toFixed(2)))*100;
+    amount = (+(((totales_productos.reduce((a, b) => a + b, 0)) + ((totales_productos.reduce((a, b) => a + b, 0)) * ivaEcuador)).toFixed(2)))*100;
+    console.log(amount);
+    console.log(payphone.Button);
     document.getElementById('pp-button').innerHTML = '';
-    /**************************/
+/**************************/
     payphone.Button({
-      token: token,
-      btnHorizontal: true,
-      btnCard: true,
-      createOrder: function (actions) {
-        return actions.prepare({
-          amount: amount,
-          amountWithTax: amountWithTax,
-          tax: tax,
-          currency: "USD",
-          clientTransactionId: transaccionid,
-          responseUrl: responseUrl,
-          cancellationUrl: cancellationUrl
-        });
-      },
-      onComplete: function (model, actions) {
-        //Se confirma el pago realizado
-        actions.confirm({
-          id: model.id,
-          clientTxId: model.clientTxId
-        }).then(function (value) {
-          //EN ESTA SECCIÓN SE PROCESA LA RESPUESTA CON LOS DATOS DE RESPUESTA
-          if (value.statusCode == 3) {
-            alert('Orden# ' + value.clientTransactionId +
-              '\n Codigo de Autorización : ' + value.authorizationCode +
-              '\n Moneda :' + value.currency +
-              '\n Monto Total : $' + (value.amount / 100).toFixed(2) +
-              '\n Referencia : ' + value.reference +
-              '\n Medio de Pago : ' + value.cardBrand +
-              '\n Id Transaccion :' + value.transactionId +
-              '\n Estado :' + value.transactionStatus
-            );
-            location.reload();
-          } else {
-            alert('Orden# ' + value.clientTransactionId +
-              '\n Codigo de Autorización : ' + value.authorizationCode +
-              '\n Moneda :' + value.currency +
-              '\n Monto Total : $' + (value.amount / 100).toFixed(2) +
-              '\n Referencia : ' + value.reference +
-              '\n Medio de Pago : ' + value.cardBrand +
-              '\n Id Transaccion : ' + value.transactionId +
-              '\n Estado : ' + value.transactionStatus +
-              '\n Hubo un problema su transaccion fue : ' + value.message
-            );
-            location.reload();
-          }
-        }).catch(function (err) {
-          alert(err);
-          location.reload();
-          console.log(err);
-        });
+        token: token,
+        btnHorizontal: true,
+        btnCard: true,
+        createOrder: function (actions) {
+          return actions.prepare({
+             
+            amount: amount,
+            amountWithTax: amountWithTax,
+            tax: tax,
+            currency: "USD",
+            clientTransactionId: transaccionid,
+            responseUrl: responseUrl,
+            cancellationUrl: cancellationUrl
+          });
 
-      }
-    }).render('#pp-button');
+        },
+        onComplete: function (model, actions) {
+
+          //Se confirma el pago realizado
+          actions.confirm({
+            id: model.id,
+            clientTxId: model.clientTxId
+          }).then(function (value) {
+
+            //EN ESTA SECCIÓN SE PROCESA LA RESPUESTA CON LOS DATOS DE RESPUESTA
+            if (value.statusCode == 3) {
+              alert('Orden# ' + value.clientTransactionId +
+                '\n Codigo de Autorización : ' + value.authorizationCode +
+                '\n Moneda :' + value.currency +
+                '\n Monto Total : $' + (value.amount / 100).toFixed(2) +
+                '\n Referencia : ' + value.reference +
+                '\n Medio de Pago : ' + value.cardBrand +
+                '\n Id Transaccion :' + value.transactionId +
+                '\n Estado :' + value.transactionStatus
+              );
+              location.reload();
+            } else {
+              alert('Orden# ' + value.clientTransactionId +
+                '\n Codigo de Autorización : ' + value.authorizationCode +
+                '\n Moneda :' + value.currency +
+                '\n Monto Total : $' + (value.amount / 100).toFixed(2) +
+                '\n Referencia : ' + value.reference +
+                '\n Medio de Pago : ' + value.cardBrand +
+                '\n Id Transaccion : ' + value.transactionId +
+                '\n Estado : ' + value.transactionStatus +
+                '\n Hubo un problema su transaccion fue : ' + value.message
+              );
+              location.reload();
+            }
+          }).catch(function (err) {
+            alert(err);
+            location.reload();
+            console.log(err);
+          });
+
+        }
+      }).render('#pp-button');
     /***************************/
 
+  //console.log(amount);console.log(amountWithTax);console.log(tax);
   }
 
   function desglose(select1, select2, select3) {
@@ -622,10 +622,10 @@
     sel1.appendChild(p1);
     sel2.appendChild(p2);
     sel3.appendChild(p3);
-    //amount,amountWithTax,tax=parceInt(0);
-    amountWithTax = (+(((totales_productos.reduce((a, b) => a + b, 0))).toFixed(2))) * 100;
-    tax = (+(((totales_productos.reduce((a, b) => a + b, 0)) * ivaEcuador).toFixed(2))) * 100;
-    amount = (+(((totales_productos.reduce((a, b) => a + b, 0)) + ((totales_productos.reduce((a, b) => a + b, 0)) * ivaEcuador)).toFixed(2))) * 100;
+     //amount,amountWithTax,tax=parceInt(0);
+    amountWithTax = (+(((totales_productos.reduce((a, b) => a + b, 0))).toFixed(2)))*100;
+    tax = (+(((totales_productos.reduce((a, b) => a + b, 0)) * ivaEcuador).toFixed(2)))*100;
+    amount = (+(((totales_productos.reduce((a, b) => a + b, 0)) + ((totales_productos.reduce((a, b) => a + b, 0)) * ivaEcuador)).toFixed(2)))*100;
     //console.log(amount);console.log(amountWithTax);console.log(tax);
   }
 
@@ -638,12 +638,10 @@
     for (let i in array) {
       let mas = document.createElement('button');
       let menos = document.createElement('button');
-      //let p = document.createElement("p");
       mas.id = array[i].name + '_mas';
       menos.id = array[i].name + '_menos';
       mas.innerText = '+';
       menos.innerText = '-';
-      // p.innerText = array[i].cantidad;
       cantidades_productos.splice(i, 0, array[i].cantidad);
       totales_productos.splice(i, 0, (array[i].cantidad * array[i].valor));
       mas.addEventListener("click", function (event) {
@@ -667,7 +665,6 @@
       let divb = document.createElement("h3");
       divb.className = 'botonesgrill';
       divb.appendChild(mas);
-      // divb.appendChild(p);
       divb.appendChild(menos);
       div.appendChild(divb);
     }
@@ -703,8 +700,7 @@
     }
     formato.appendChild(div);
   }
-
-
+  
   addbottones(productos, '#botonesmasmenos');
   addobj('Producto', productos, 'name', '#profuctos');
   addobj('Precios', productos, 'valor', '#valores');
@@ -718,91 +714,3 @@
   -->
 
 </html>
-
-<!--
-
-  /*"RedireccionamientoPayphone()"*/
-  /*
-  var ParametrosPost = {
-    //int
-    amount: amount,
-    amountWithoutTax: amountWithoutTax,
-    amountWithTax: amountWithTax,
-    tax: tax,
-    service: service,
-    tip: tip,
-    //String
-    currency: currency,
-    clientTransactionId: clientTransactionId,
-    storeId: storeId,
-    reference: reference,
-    phoneNumber: phoneNumber,
-    email: email,
-    documentId: documentId
-  };*/
-  /*
-  var ParametrosGet = {
-    statusCode: statusCode,
-    transactionStatus: transactionStatus,
-    clientTransactionId: clientTransactionId,
-    authorizationCode: authorizationCode,
-    transactionId: transactionId,
-    email: email,
-    phoneNumber: phoneNumber,
-    document: document,
-    amount: amount,
-    cardType: cardType,
-    cardBrandCode: cardBrandCode,
-    cardBrand: cardBrand,
-    bin: bin,
-    lastDigits: lastDigits,
-    deferredCode: deferredCode,
-    deferredMessage: deferredMessage,
-    deferred: deferred,
-    message: message,
-    messageCode: messageCode,
-    currency: currency,
-    optionalParameter1: optionalParameter1
-  };
-  */
-
-// debe cumplir la siguiente regla Amount = amountWithoutTax + AmountWithTax + AmountWithTax + Tax + service + tip
-            /*
-        amount: monto*100,// monto total de venta en etero $1 es 1*100
-        amountWithoutTax: monto*100, //monto total que no cobra iva
-            amountWithTax:0,//monto total que cobra iva
-            tax: 0,//monto del iva
-            service: 0,//si cobra montos de servicio
-            tip:0,//si cobra montos de propina
-            //storeId:"", Si dispone de mas de una tienda y quiere diferenciar la tienda de venta
-        currency: "USD",
-        clientTransactionId: clientTransaccion, ////id unico debe cambiar para cada transaccion
-            responseUrl: "http://localhost/ButtomBasic/confirm.html",//cambiar a su url
-            cancellationUrl: "http://localhost/ButtomBasic/BotonPago.html"//cambiar a su url
-            */
-
-/*
-    payphone.Button.createOrder= function (actions) {
-          return actions.prepare({       
-            amount: amount,
-            amountWithTax: amountWithTax,
-            tax: tax,
-            currency: "USD",
-            clientTransactionId: transaccionid,
-            responseUrl: responseUrl,
-            cancellationUrl: cancellationUrl
-          });
-    }
-*/
-
-    //console.log(amount);console.log(amountWithTax);console.log(tax);
-
- /*
-      }
-      console.log(amount);
-      console.log(amountWithTax);
-      console.log(tax);*/
-    console.log(amount);
-    console.log(amountWithTax);
-    console.log(tax);
--->

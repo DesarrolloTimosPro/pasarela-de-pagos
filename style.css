@@ -140,3 +140,27 @@
     </svg>
   </div>
   -->
+
+
+
+/*
+    p1.innerHTML = totales_productos.reduce((a, b) => a + b, 0);
+    p2.innerHTML = ((totales_productos.reduce((a, b) => a + b, 0)) * ivaEcuador);
+    p3.innerHTML = totales_productos.reduce((a, b) => a + b, 0) + (totales_productos.reduce((a, b) => a + b, 0) * ivaEcuador);
+*/
+/*
+    let siniva = totales_productos.reduce((a, b) => a + b, 0);
+    for (let i = 0; i < totales_productos.length; i++) {
+      siniva += totales_productos[i];
+    }
+    siniva = +((siniva).toFixed(2));
+    let iva = +((siniva * ivaEcuador).toFixed(2));
+    let coniva = +((siniva + iva).toFixed(2));
+
+    +(((totales_productos.reduce((a, b) => a + b, 0))).toFixed(2))
++(((totales_productos.reduce((a, b) => a + b, 0)) * ivaEcuador).toFixed(2))
++(((totales_productos.reduce((a, b) => a + b, 0)) + ((totales_productos.reduce((a, b) => a + b, 0)) * ivaEcuador)).toFixed(2))
+    document.getElementById('totalsiniva').innerHTML = siniva;
+    document.getElementById('totaliva').innerHTML = iva;
+    document.getElementById('totalconiva').innerHTML = coniva;
+*/

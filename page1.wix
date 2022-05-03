@@ -1,0 +1,332 @@
+import  {fetch,getJSON} from 'wix-fetch';
+import wixWindow from 'wix-window';
+
+
+//import {ok, notFound, serverError} from 'wix-http-functions';
+//import wixData from 'wix-data';
+//import {getJSON} from 'wix-fetch';
+//import ajax from 'ajax';
+//import  {pasarelapost} from 'backend/redireccion';
+//  {redireccion} from 'backend/urlpay';
+
+let token = "uwNkqtj-LecWnpDTOcazmWaoa3ra2lGhRU50Agln6zoYWkJ3Nd0oeMZwqwQy2gbXmnjMYA2YDPJvZXUmbbyqfgUfAGlXR_h8tTDCmndbCP29LeS6ZgbaeoQhGFhc_LlPjUiRFCxziCBxNOkJ6kyL72dwlaanKwaXfLiQC2eU-_nq6-WQmQIzOyKjJQ_9wEbvfllWgyky5HZjTbWndcqPZCjIASjHs5fk2gukiOinYIbX331MPzcsPEpKK0jQ6EgaFOcbf6n2vrW0nndHnw7gr7ZG9-2VdlsigG81PM_0JwZvlx2NgZus4bpZE6rgBuTpMuZEK2PLi9zHMo4lc8puQoHb3zY";
+let responseUrl = "https://www.timospro.com/pagos-online-1";//cambiar a su url
+let cancellationUrl = "https://www.timospro.com/pagos-online-1";//cambiar a su url
+
+let id1 ;
+let idclient1;
+
+$w.onReady(function () {
+	
+	console.log(location.host);
+	//$w('#box126').
+	let video='xisAdBdFHc0';//	video timospro
+	$w('#html1').src='https://www.youtube.com/embed/'+video+'?rel='+0+'&loop='+1+'&autoplay='+1+'&mute='+1+'&playlist='+video;
+	//$w('#html1').src='wix:video://v1/cd4fbd_143e2004d285417895fa5490aa9f630a/Video%20Timsales.mp4#posterUri=cd4fbd_143e2004d285417895fa5490aa9f630af000.jpg&posterWidth=1080&posterHeight=1080';//'wix:video://v1/cd4fbd_143e2004d285417895fa5490aa9f630a/Video%20Timsales.mp4#posterUri=cd4fbd_143e2004d285417895fa5490aa9f630af000.jpg&posterWidth=1080&posterHeight=1080';//'wix:video://v1/cd4fbd_143e2004d285417895fa5490aa9f630a/Video%20Timsales.mp4';//wix:video://v1/cd4fbd_143e2004d285417895fa5490aa9f630a/Video%20Timsales.mp4#posterUri=cd4fbd_143e2004d285417895fa5490aa9f630af000.jpg&posterWidth=1080&posterHeight=1080;//'wix:video://v1/cd4fbd_143e2004d285417895fa5490aa9f630a/Video%20Timsales.mp4#posterUri=cd4fbd_143e2004d285417895fa5490aa9f630af000.jpg&posterWidth=1080&posterHeight=1080';
+	//$w('#html1').src=
+	//console.log($w('#videoBox1').src);
+	//$w('#html1').src=$w('#videoBox1').src.toString();
+		
+	console.log(":eyes:");
+	console.log($w("#dataset1").getCurrentItem());//timSales
+	//console.log($w("#dataset1").getCurrentItem().timSales);//timSales
+
+	//	$w('#html1').src='https://www.youtube.com/embed/'+video+'?rel=0&loop=1&autoplay=1&mute=1'+'&playlist='+video;
+	//$w('#dataset1').
+	//VideosTimSales
+/*
+	$w("#dataset1").loadPage(1)
+  	.then( (items) => {
+    	let firstItem = items[0];
+		$w('#html1').src=items[0];	
+    	//let fieldValue = firstItem
+ //   	let fieldValue = firstItem.fieldName;
+  	} )
+  	.catch( (err) => {
+    	let errMsg = err.message;
+    	let errCode = err.code;
+  	} );
+*/
+
+	//$w('#html1').src='https://www.youtube.com/embed/xINE-HG692s'+'?autoplay=1&mute=1';	videos pago payphone
+	//$w('#html1').src='https://documentos.timospro.com/file/qqx4r023a305458fe47d48bbdf0193ff6b74b';
+	//$w('#page1').
+	//$w('#html1').src=$w('#vectorImage62').src;
+	/*
+	wixData.get("Servicios", "TimPeople")
+  	.then( (results) => {
+		$w('#html1').src=String(results);//$w("#Contact 5 3").currentItem
+    	//let item = results; //see item below
+  	} )
+  	.catch( (err) => {
+    	let errorMsg = err;
+  	} );
+	*/
+	let licencias = 3;
+	let licenciasvalorunitario = 120;
+	let ivaEcuador = 12;
+	
+	let licenciasvalor =licencias*licenciasvalorunitario;
+	let valordeliva = licenciasvalor*(ivaEcuador/100) ;
+	let valorapagar = licenciasvalor+valordeliva;
+
+
+	licenciasvalor = redond2(licenciasvalor);
+	valordeliva = redond2(valordeliva) ;
+	valorapagar = redond2(valorapagar) ;
+
+	$w('#nLicencias').text = licencias.toLocaleString('en');
+	$w('#licenciaVal').text = (licenciasvalor).toLocaleString('en');
+	$w('#iva').text = (ivaEcuador).toLocaleString('en')+'%';
+	$w('#valordeiva').text = (valordeliva).toLocaleString('en');
+	$w('#totalapagar').text = (valorapagar).toLocaleString('en');
+	
+	$w('#mas').onClick ( () => {
+		licencias++;
+		
+		licenciasvalor =licencias*licenciasvalorunitario;
+		valordeliva = licenciasvalor*(ivaEcuador/100) ;
+		valorapagar = licenciasvalor+valordeliva;
+		
+		licenciasvalor = redond2(licenciasvalor);
+		valordeliva = redond2(valordeliva) ;
+		valorapagar = redond2(valorapagar) ; 
+		
+		$w('#nLicencias').text = licencias.toLocaleString('en');
+		$w('#licenciaVal').text = (licenciasvalor).toLocaleString('en');
+		$w('#valordeiva').text = (valordeliva).toLocaleString('en');
+		$w('#totalapagar').text = (valorapagar).toLocaleString('en');
+		
+	} );
+	$w('#menos').onClick ( () => {
+		if (licencias > 3){
+			licencias--;
+			licenciasvalor = licencias*licenciasvalorunitario;
+			valordeliva = licenciasvalor*(ivaEcuador/100) ;
+			valorapagar = licenciasvalor+valordeliva; 
+			licenciasvalor = redond2(licenciasvalor);
+			valordeliva = redond2(valordeliva) ;
+			valorapagar = redond2(valorapagar) ;
+			$w('#nLicencias').text = licencias.toLocaleString('en');
+			$w('#licenciaVal').text = (licenciasvalor).toLocaleString('en');
+			$w('#valordeiva').text = (valordeliva).toLocaleString('en');
+			$w('#totalapagar').text = (valorapagar).toLocaleString('en');
+		}
+	} );
+	$w('#pagar').onClick ( () => {
+		let transaccionid = Date.now() + "CLientTimos";
+		let bodyjs= {
+   			amountWithTax: parseInt(licenciasvalor*100),
+   			tax: parseInt(valordeliva*100),
+			amount:parseInt(licenciasvalor*100)+parseInt(valordeliva*100),
+   			currency: "USD",
+   			clientTransactionId: transaccionid,
+   			responseUrl: responseUrl,
+   			cancellationUrl: cancellationUrl 
+ 		};
+		fetch("https://pay.payphonetodoesposible.com/api/button/Prepare", {
+ 			method: "post",
+			headers: {		//"Content-Type": "application/x-www-form-urlencoded",
+ 			'Content-Type':'application/json',
+ 			'Authorization': 'bearer ' + token
+   			},
+ 			body:JSON.stringify(bodyjs)
+    	})
+		.then( (httpResponse) => {
+ 			if (httpResponse.ok) {
+				console.log("OK");
+				let result = httpResponse.json(); 
+ 				
+				return result
+				
+
+
+				
+				//json()Promise
+				//httpResponse.json()
+				//return httpResponse.json();
+ 				//location.href = httpResponse.payWithCard;
+    		} else {
+ 				return Promise.reject("Fetch did not succeed");
+    		}
+  		})
+		.then((result) => {
+			//console.log("then 2");
+    		//console.log(result.payWithCard);//LINK 
+			//location.href=result.payWithCard;$w('#html1').src='https://www.timospro.com/pagos-online';
+			$w('#html1').src=result.payWithCard;
+
+			//$w('Payphone')
+			// ...
+
+			wixWindow.openLightbox("Payphone", {
+   				"url1": result.payWithCard//,
+   				//"pageSend2": $w('#pageSend2').value
+ 			})
+  				/*.then( (data) => {
+    			let receivedData = data;
+  			})
+			*/;
+			//$w('#lightbox1')
+			//$w('#html1')
+			
+
+
+			/*while ($w('#html1').src==result.payWithCard){
+				let sdsds =  0;
+			}
+			$w('#html1').src=video;
+			*/
+			//
+			//Window.parent.postMessage(result.payWithCard);
+			//#html1
+			//$w('#section4').
+			//$w('#page1').
+			//window.location =
+			//location.host=result.payWithCard;
+			///redireccion(location,result.payWithCard);
+			//= result.payWithCard;
+        	//let myResult =  result;
+			//document.getElementById(
+
+/*
+			getconfirm()
+		.then((json)=>{
+		id1 = String(json.id);
+		idclient1 = String(json.clientTransactionId);
+		console.log(":eyes: get confirm");
+		console.log(json);
+		console.log(id1);
+		console.log(idclient1);
+})
+*/
+
+    	})
+		
+		/*.finally((result) => {
+			$w('#html1').src=video;	
+		})*/
+    	//.then( (json) => console.log(json.someKey) )
+  		//.catch(err => console.log(err))
+  		/*.then((result) => {
+    		console.log(result);
+        	//let myResult =  result;
+   		 })*/
+    	.catch((error) => {
+        	console.log(error);
+			
+    	});
+	});
+
+	
+
+
+});
+function redond2(params) {
+	return  (params).toFixed(2);
+}
+
+export async function getconfirm() {
+	return fetch("https://pay.payphonetodoesposible.com/api/button/V2/Confirm",{"method":"get"})
+	.then((httpResponse)=>{
+		if(httpResponse.ok){
+			return httpResponse.json();
+		} else {
+			return Promise.reject("fail en confirmation");
+		}
+	})
+}
+
+/////
+/*
+let id1 ;
+let idclient1;
+getconfirm()
+.then((json)=>{
+	id1 = String(json.id);
+	idclient1 = String(json.clientTransactionId);
+	console.log(id1);
+	console.log(idclient1);
+})
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Referencia de API: https://www.wix.com/velo/reference/api-overview/introduction
+// “Hello, World!” Ejemplo: https://learn-code.wix.com/en/article/1-hello-world
+/**
+ * console.log(result);
+				console.log("FDSFD");
+				console.log(Promise);
+
+*/
+
+ /*
+ (async()=>{
+   const arr= await fetchJSON();
+})();
+ */
+
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+
+export function page1_click(event) {
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+}
+
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+
+export function button23_click(event) {
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+}
+
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+
+export function button23_click_1(event) {
+	// This function was added from the Properties & Events panel. To learn more, visit http://wix.to/UcBnC-4
+	// Add your code for this event here: 
+}
+*/
+
+/**
+*	Adds an event handler that runs when the element is clicked.
+	[Read more](https://www.wix.com/corvid/reference/$w.ClickableMixin.html#onClick)
+*	 @param {$w.MouseEvent} event
+*/

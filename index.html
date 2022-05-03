@@ -5,9 +5,14 @@
   <!-- links
   -->
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  
   <script src="https://pay.payphonetodoesposible.com/api/button/js?appId=MWRpC09cUa1dmtywvpRw"></script>
+
   <script>
+
+
     let token = "LHwf_Mog_Anfp8SCaPsyuLAKos2GcTE9k9u72Nyet68cj-BFR0FWlbvuy9Ym6dTENxWfmlfyQTUvDV0a6NZxjWZ3KRQT6S70fniO4iaf6wDTZHNpYqCnnfLxRxx8wkZE1oSERHY7zD2tPgPUryU-BK63u9YSlA8fbDDjkjvrNugZdN6JFi1fJYA-MZcE8g2w2AE4N2KH9nelazjeuXHNCqfuop3MtktXn8QitEP6lFMdk65z3bL4rvDFCoANM5BGMQa-r1dXk2F6dUPHvPMRHcnp6Ho-dSWXQtaohOIma9BMCbzl0cFo1x0fwfBBP1xXUPpaCw";
+    let tokenapi = "t663huwnhFOj1KuoE7DoIZGPm4xZbXs_KZHg3uX4GnibYuYJQO1zToOdV3R-lJPjdgvI0ninTpUFb5YDrCNAJm22yLBwKyvuYIv78ceggGoYUyAvM2rleySxEa4lm9woNPBUNNowjjBsv8vfWFboQ0Ux6Rnxj8p_T0WQ_mdhEcvGVMvB6H0SMZD4yX4mKHUL4Zc4LNCDh8fIHaFZSZ4tXkibp_vf2IGUtFiGPtymkoSRwROYeozbpMIj7iG7pqjZfYlRDE1_OyOuDroyeOKZSDFFGXm32PHxYAa206tQVcjG1ffzlCKv0rTC5rWnDNFRlAKYdQ";
     let responseUrl = "https://pasarela-de-pagos.desarrollotimos.repl.co";//cambiar a su url
     let cancellationUrl = "https://pasarela-de-pagos.desarrollotimos.repl.co";//cambiar a su url
   </script>
@@ -30,25 +35,26 @@
       valor: 120,
       cantidad: 3,
     },
-    /*                 
-    {
-      name: 'LicenciasPro',
-      valor: 240,
-      cantidad: 1
-    }, {
-      name: 'Licenciasbeta',
-      valor: 60,
-      cantidad: 2
-    }
-    */                   
+      /*                 
+      {
+        name: 'LicenciasPro',
+        valor: 240,
+        cantidad: 1
+      }, {
+        name: 'Licenciasbeta',
+        valor: 60,
+        cantidad: 2
+      }
+      */
     ]
 
   </script>
   <!-- contador y boton pagar
   -->
+  <!--///-->
   <script>
     transaccionid = Date.now() + "CLientTimos";
-   
+
     window.onload = function () {
       payphone.Button({
         token: token,
@@ -111,6 +117,7 @@
 
     }
   </script>
+  <!--//-->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Pasarela de Pagos Payphone</title>
@@ -153,6 +160,12 @@
       padding: 5px;
       border-radius: 8px;
       color: papayawhip;
+    }
+    #CheckoutPayphone{
+      display: block;
+      margin: auto;
+      width: 100%;
+      border: null;
     }
 
     #pp-button {
@@ -280,9 +293,9 @@
         'siniva siniva siniva siniva siniva sinivaValor'
         'iva iva iva iva iva ivaValor'
         'coniva coniva coniva coniva coniva conivaValor';
-      gap: 5px;
-      background-color: #2196F3;
-      padding: 5px;
+      gap: 0px;
+      background-color: #ffffff;
+      padding: 0px;
     }
 
     .grid-container>div {
@@ -300,7 +313,7 @@
 <body>
 
   <div class="grid-container">
-
+<!--
     <div class="logo">
       <svg preserveAspectRatio="xMidYMid meet" data-bbox="-0.001 0 646.441 280.684" viewBox="0 0 646.45 281.17"
         data-type="ugc" role="img" aria-labelledby="svgcid-imgb6u-83uall">
@@ -437,7 +450,8 @@
         </g>
       </svg>
     </div>
-
+-->
+    <div class="logo"> </div>
     <div class="producto">
       <section id="profuctos"></section>
     </div>
@@ -480,11 +494,18 @@
     </div>
   </div>
 
+  <!--
   <section id="RedireccionamientoPayphone">
     <button onclick='buttomPrepare()'>Pagar Con Payphone</button>
+      <button onclick='linkpago()'>link de Payphone</button>
   </section>
-
+  -->
+   <section id="CheckoutPayphone">
   <div id="pp-button"></div>
+</section>
+  
+  <section id="RedireccionamientoPayphone">
+  </section>
 
 </body>
 
@@ -499,19 +520,12 @@
 
   function buttomPrepare() {
 
-    transaccionid = Date.now() + "CLientTimos";//creo un id de transaccion random
-    //console.log(transaccionid);
+    transaccionid = Date.now() + "CLientTimos";
 
     var dataJson = {
-
-      /*amount: parseInt((document.getElementById('totalconiva').innerHTML) * 100),
-      tax: parseInt((document.getElementById('totaliva').innerHTML) * 100),
-      amountWithTax: parseInt((document.getElementById('totalsiniva').innerHTML) * 100),
-      */
       amount: amount,
       amountWithTax: amountWithTax,
       tax: tax,
-
       currency: "USD",
       clientTransactionId: transaccionid,
       responseUrl: responseUrl,
@@ -526,15 +540,63 @@
         xhr.setRequestHeader('Authorization', 'bearer ' + token)
       },
       success: function SolicitarPago(respuesta) {
-        location.href = respuesta.payWithCard;
+        console.log(respuesta);
+        console.log(respuesta.payWithCard);
+        console.log(respuesta.payWithPayPhone);
+        //location.href = respuesta.payWithCard;
+        location.href = respuesta.payWithPayPhone;
       }, error: function (respuesta) {
         alert("error en la llamada:" + JSON.stringify(respuesta));
       }
     });
   }
 
-  function RedireccionamientoPayphone() {
-    console.log("En construccion");
+  function linkpago() {//devuelve el url como string 
+    //transaccionid = Date.now() + "CLientTimos";
+    transaccionid = Date.now();
+    var dataJson = {
+      amount: amount,
+      amountWithTax: amountWithTax,
+      tax: tax,
+      currency: "USD",
+      clientTransactionId: transaccionid
+    };
+    console.log(dataJson);
+    /*
+    let response =await fetch('https://pay.payphonetodoesposible.com/api/Links'),{
+    method: 'POST', 
+   // mode: 'cors', 
+   // cache: 'no-cache', 
+   // credentials: 'same-origin', 
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'bearer ' +tokenapi
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    //redirect: 'follow', // manual, *follow, error
+    //referrerPolicy: 'no-referrer', 
+      body: JSON.stringify(dataJson)  
+  });
+  return response.json(); // parses
+    */
+    
+    $.ajax({
+      data: dataJson,
+      url: 'https://pay.payphonetodoesposible.com/api/Links',
+      type: 'POST',
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader('Authorization', 'bearer ' +tokenapi)
+        //xhr.setRequestHeader('Content-Type','application/json')
+      },
+      success: function SolicitarPago(respuesta) {
+        console.log(respuesta);
+        //location.href = respuesta.payWithCard;
+      }, error: function (respuesta) {
+        alert("error en la llamada:" + JSON.stringify(respuesta));
+      }
+    });
+
+    
   }
 </script>
 
@@ -606,6 +668,7 @@
 
       }
     }).render('#pp-button');
+
     /***************************/
 
   }
